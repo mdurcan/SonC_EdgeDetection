@@ -1,3 +1,43 @@
+;Test, load TestBram1
+Main:
+	SETBR R0, 6			;Set address = 64
+	SETBR R1, 0			;Set Nibble = 1
+	CALL CompareLeft	; compare nibble 1, return 0
+	NOP
+	INC R1,R1			; nibble = 2
+	CALL CompareLeft	; compare nibble 2, return not 0
+	NOP
+	INC R1,R1			; nibble =3
+	CALL CompareLeft	; compare nibble 3, return 0
+	NOP
+	INC R1,R1			; nibble = 4
+	CALL CompareLeft	; compare nibble 4, return not 0
+	NOP
+END
+
+;test functions, return set result
+CheckAtLeft:
+	SETBR R6,0
+RET
+
+GetNibble1:
+	XOR R3,R3,R3	; R3 = 0000h
+	SETBR R3,0		;0001h
+RET
+GetNibble2:
+	XOR R3,R3,R3	; R3 = 0000h
+	SETBR R3,0		;0001h
+RET
+GetNibble3:
+	XOR R3,R3,R3	; R3 = 0000h
+	SETBR R3,1		;0002h
+RET
+GetNibble4:
+	XOR R3,R3,R3	; R3 = 0000h
+	SETBR R3,1		;0002h
+RET
+
+
 ; Compare the Nibble beside the current one
 ; 0 = same & not 0 = difference
 CompareLeft:
@@ -53,4 +93,22 @@ CompareLeft:
 	
 	CompareL:
 	XOR R6,R4,R3		; compare registors and return
+RET
+
+
+; other functions
+CheckNibbleVal1:
+	XOR R3,R3,R3	; R3 = 0000h
+	SETBR R3,0		; R3 = 0001h
+	XOR R6,R1,R3	; compare 0 if R1 = 0001h
+RET
+
+CheckNibbleVal2:
+	INC R3,R3			; R3 = 0002h
+	XOR R6,R1,R3	; compare 0 if R1 = 0002h
+RET
+
+CheckNibbleVal3:
+	INC R3,R3			; R3 = 0003h
+	XOR R6,R1,R3	; compare 0 if R1 = 0003h
 RET
