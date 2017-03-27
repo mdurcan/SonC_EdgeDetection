@@ -1,11 +1,11 @@
 ; Sets Nibble 2
 SetNibble2:
 	;Set  bits
-	SHRL R3, 4
-	CLRBR R2, 4
-	CLRBR R2, 5
-	CLRBR R2, 6
-	CLRBR R2, 7
+	SHRL R3, 8
+	CLRBR R2, 8
+	CLRBR R2, 9
+	CLRBR R2, 10
+	CLRBR R2, 11
 
 	ADD R2, R2, R3
 
