@@ -1,3 +1,11 @@
+Main:
+	CALL IncNibbleVal
+	CALL IncNibbleVal
+	CALL IncNibbleVal
+	CALL IncNibbleVal
+	CALL IncNibbleVal
+END
+
 ; Increments Nibble Value
 IncNibbleVal:
 	;Increments nibble value when moving through nibble 1-4
@@ -10,4 +18,4 @@ IncNibbleVal:
 	SETBR R1, 0
 	RET
 	INC R1, R1
-RET
+RET	
