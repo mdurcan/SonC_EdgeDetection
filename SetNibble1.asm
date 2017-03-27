@@ -1,6 +1,7 @@
 ; Sets Nibble 1
 SetNibble1:
-	;Set bits
+	;Call Set Nibble Result
+	;Shifts nibble 1 back into place and returns it to data set
 	SHLL R3, 12
 	CLRBR R2, 12
 	CLRBR R2, 13
