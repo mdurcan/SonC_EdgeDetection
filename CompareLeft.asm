@@ -16,12 +16,14 @@ CompareLeft:
 	RET
 	;continue
 	PUSH R0				;push address just for compare
+	PUSH R2
 	; get nibble needed for comparing against
 	INC R0,R0			; get next address  
-	MOVAMEMR R4, @R0	; Ro next address put into R4
+	MOVAMEMR R2, @R0	; Ro next address put into R4
 	CALL GetNibble1		; get nibble 1 of new address
 	MOVRR R4,R3			; moves nibble into R4
 	; get what we are checking
+	POP R2
 	POP R0				; get back address of current 
 	CALL GetNibble4		; get Nibble
 	JZ R7, CompareL		; go to compare and return

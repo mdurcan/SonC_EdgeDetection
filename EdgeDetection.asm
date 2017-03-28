@@ -98,6 +98,7 @@ RET
 
 
 CompareLeft:
+	PUSH R6
 	CALL CheckNibbleVal1 		; checks if at nibble value 1
 	JZ R6, CompareLeftNibble1	; compares nibble 1 to left
 	
@@ -132,16 +133,20 @@ CompareLeft:
 		JNZ R6, 2				; Continue if not at left-most position in LED grid
 		RET						; If at left position, return
 		PUSH R0					; push address just for compare
+		PUSH R2
 		INC R0,R0				; get next address  
-		MOVAMEMR R4, @R0		; R0 next address put into R4
+		MOVAMEMR R2, @R0		; R0 next address put into R4
 		CALL GetNibble1			; get nibble 1 of new address
 		MOVRR R4,R3				; moves nibble into R4
+		POP R2
 		POP R0					; get back current memory address
 		CALL GetNibble4			; get Nibble
 		JZ R7, CompareL			; go to compare and return
 	
 	CompareL:
-	XOR R6,R4,R3				; compare registors and return
+	POP R6
+	XOR R4,R4,R3				; compare registors and return
+	ADD R6,R6,R4
 RET
 
 
