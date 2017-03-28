@@ -7,29 +7,42 @@ main:
 	CALL GetAddress64
 	XOR R1, R1, R1			
 	CALL IncNibbleVal		; Set nibble value to 1 at start of image
+	CALL CheckAtEnd
+	JZ R6, 3
+	CALL processNibble
+	CALL main 				; go back to beginning
+	finished:
+END
+
+
+processNibble:
 	MOVAMEMR R2, @R0 
 	
 	CALL CompareAbove
+	CALL CompareLeft
 	CALL SetNibbleResult	; Set result of edge detection, store in R3
 	CALL SetNibble1			; Store result of edge detection in R2
 	CALL IncNibbleVal		; nibble = 2
 	
 	CALL CompareAbove
+	CALL CompareLeft
 	CALL SetNibbleResult
 	CALL SetNibble2
 	CALL IncNibbleVal		; nibble = 3
 	
 	CALL CompareAbove
+	CALL CompareLeft
 	CALL SetNibbleResult
 	CALL SetNibble3
 	CALL IncNibbleVal		; nibble = 4
 	
 	CALL CompareAbove
+	CALL CompareLeft
 	CALL SetNibbleResult
 	CALL SetNibble4
 	
 	MOVBAMEM @R0, R2		; Move results of edge detection (R2) back to original memory location
-END
+RET
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -137,17 +150,20 @@ RET
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-GetAddress64: 			; puts address 64 into address reg
+GetAddress64: 			; puts address 64 into R0
 	XOR R0,R0,R0		; clear address
 	SETBR R0, 6			; Set address = 64
 RET
-GetAddress127:			; 127h = 0000 0001 0010 0111
-	XOR R0,R0,R0		; Clear R0
-	SETBR R0, 0			; 
-	SETBR R0, 1			; 
-	SETBR R0, 2			; 
-	SETBR R0, 5			; 
-	SETBR R0, 8			; R0 = 0127h
+CheckAtEnd:				; 127h = 0000 0001 0010 0111
+	PUSH R5
+	XOR R5,R5,R5		; Clear R0
+	SETBR R5, 0			; 
+	SETBR R5, 1			; 
+	SETBR R5, 2			; 
+	SETBR R5, 5			; 
+	SETBR R5, 8			; R0 = 0127h
+	XOR R6, R5, R0		; If current address is 127 then we are finished, R6 will be 0000h
+	POP R5
 RET
 
 
