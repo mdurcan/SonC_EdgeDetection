@@ -130,7 +130,8 @@ CompareLeft:
 	
 	CompareLeftNibble4:			; Compare left of nibble 4
 		CALL CheckAtLeft 		; checks if at left most nibble in LED grid
-		JNZ R6, 2				; Continue if not at left-most position in LED grid
+		JNZ R6, 3				; Continue if not at left-most position in LED grid
+		POP R6
 		RET						; If at left position, return
 		PUSH R0					; push address just for compare
 		PUSH R2
