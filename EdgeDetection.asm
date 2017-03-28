@@ -40,7 +40,7 @@ END
 CompareAbove:
 	PUSH R0
 	XOR R5, R5, R5
-	SETBR R5, 3					; R5 = 0004d
+	SETBR R5, 2					; R5 = 0004d
 	ADD R0, R0, R5				; R0 = R0 + 4
 	MOVAMEMR R4, @R5			; R4 holds contents of memory address 4 above current address
 	POP R0						; Get current memory address back from stack
